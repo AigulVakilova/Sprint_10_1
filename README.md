@@ -13,6 +13,8 @@
 - Page Object Model (POM)
 
 ## Структура проекта
+
+```
 Sprint_10_1
 ├── locators/                          # Локаторы элементов
 │   ├── main_page_locators.py
