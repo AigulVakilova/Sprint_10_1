@@ -59,3 +59,12 @@ class BasePage:
 
     def get_attribute(self, locator, attr):
         return self.find(locator).get_attribute(attr)
+
+    def wait_for_element_visible(self, locator, timeout=None):
+        t = timeout or self.TIMEOUT
+        return WebDriverWait(self.driver, t).until(EC.visibility_of_element_located(locator))
+
+    def wait_for_element_invisible(self, locator, timeout=None):
+        t = timeout or self.TIMEOUT
+        return WebDriverWait(self.driver, t).until(EC.invisibility_of_element_located(locator))
+    

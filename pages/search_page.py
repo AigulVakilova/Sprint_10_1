@@ -1,5 +1,3 @@
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
 from locators.search_page_locators import SearchPageLocators
 from pages.base_page import BasePage
 
@@ -45,9 +43,7 @@ class SearchPage(BasePage):
         return self.get_text(SearchPageLocators.DETAILS_COST)
 
     def wait_for_completed_order(self, timeout=90):
-        WebDriverWait(self.driver, timeout).until(
-            EC.presence_of_element_located(SearchPageLocators.ORDER_NUMBER)
-        )
+        self.wait_for_element_visible(SearchPageLocators.ORDER_NUMBER, timeout=timeout)
 
     def is_completed_order_displayed(self):
         return self.is_visible(SearchPageLocators.COMPLETED_TITLE)
@@ -72,9 +68,8 @@ class SearchPage(BasePage):
 
     def is_search_window_closed(self):
         try:
-            WebDriverWait(self.driver, 5).until(
-                EC.invisibility_of_element_located(SearchPageLocators.SEARCH_WINDOW)
-            )
+            self.wait_for_element_invisible(SearchPageLocators.SEARCH_WINDOW, timeout=5)
             return True
         except Exception:
             return False
+        
